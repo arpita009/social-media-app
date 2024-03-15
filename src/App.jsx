@@ -1,8 +1,9 @@
-function App() {
+import SocialMedia from "./components/SocialApp";
 
+function App() {
   return (
     <>
-      Welcome
+      <SocialMedia />
     </>
   )
 }
