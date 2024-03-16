@@ -1,8 +1,7 @@
-import PostCard from "./PostCard";
+import MainContainer from "./MainContainer/MainContainer";
 
 export default function SocialMedia() {
     return(<div>
-        SocialMedia
-        <PostCard />
+        <MainContainer />
     </div>)
 }

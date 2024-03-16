@@ -1,51 +1,47 @@
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
-import Collapse from '@mui/material/Collapse';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import { red } from '@mui/material/colors';
+import { red, purple } from '@mui/material/colors';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import {useState} from "react";
 
-export default function PostCard() {
-    const [expanded, setExpanded] = React.useState(false);
-
-    const handleExpandClick = () => {
-        setExpanded(!expanded);
-    };
+export default function PostCard({content, author, image, publishDate}) {
+    const [isLiked, setIsLiked] = useState(false);
 
     return (
-        <Card sx={{ maxWidth: 345 }}>
+        <Card sx={{ maxWidth: 345, mb:'2rem' }}>
             <CardHeader
                 avatar={
                     <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                        R
+                        {author.firstName.substring(0,1)}
                     </Avatar>
                 }
-                title="Shrimp and Chorizo Paella"
-                subheader="September 14, 2016"
+                title={author.firstName + ' ' + author.lastName}
+                subheader={publishDate}
             />
             <CardMedia
                 component="img"
                 height="194"
-                image="data:image/jpeg;base64,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"
-                alt="Paella dish"
+                image={image}
+                alt="image"
             />
             <CardContent>
                 <Typography variant="body2" color="text.secondary">
-                    This impressive paella is a perfect party dish and a fun meal to cook
-                    together with your guests. Add 1 cup of frozen peas along with the mussels,
-                    if you like.
+                    {content}
                 </Typography>
             </CardContent>
             <CardActions disableSpacing>
-                <IconButton aria-label="add to favorites">
-                    <FavoriteIcon />
+                <IconButton aria-label="add to favorites"
+                            onClick={() => setIsLiked(!isLiked)}>
+                    {isLiked ? <FavoriteIcon sx={{color: purple[800]}}/> :
+                        <FavoriteBorderIcon />}
                 </IconButton>
             </CardActions>
         </Card>
