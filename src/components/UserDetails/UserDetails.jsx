@@ -1,29 +1,13 @@
-import {useParams} from "react-router-dom";
-import axios from "axios";
-import {useEffect, useState} from "react";
-import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CircularProgress } from "@mui/material";
+import useUserDetails from "../../hooks/useUserDetails";
 
 export default function UserDetails() {
-    let {id} = useParams();
-    const [user, setUser] = useState({});
-    const [isLoading, setIsLoading] = useState(true)
-
-    useEffect(() => {
-        axios.get(`https://dummyapi.io/data/v1/user/${id}`, {
-            headers: {
-                'app-id': import.meta.env.VITE_APP_ID
-            }
-        }).then(response => {
-            setUser({...response.data});
-            setIsLoading(false);
-        })
-    }, []);
+    const [user, isLoading] = useUserDetails();
 
     if (isLoading) {
         return <CircularProgress variant="outlined" />
