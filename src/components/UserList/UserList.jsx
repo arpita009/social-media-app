@@ -7,6 +7,7 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import {useState, useEffect} from "react";
 import axios from "axios";
+import {Link} from 'react-router-dom';
 
 export default function UserList() {
     const [users, setUsers] = useState([]);
@@ -25,15 +26,17 @@ export default function UserList() {
                         key={user.id}
                         disablePadding
                     >
-                        <ListItemButton>
-                            <ListItemAvatar>
-                                <Avatar
-                                    alt={`Avatar n°${idx + 1}`}
-                                    src={user.picture}
-                                />
-                            </ListItemAvatar>
-                            <ListItemText id={user.id} primary={user.firstName + ' ' + user.lastName} />
-                        </ListItemButton>
+                        <Link to={`/user/${user.id}`} className='links'>
+                            <ListItemButton>
+                                <ListItemAvatar>
+                                    <Avatar
+                                        alt={`Avatar n°${idx + 1}`}
+                                        src={user.picture}
+                                    />
+                                </ListItemAvatar>
+                                <ListItemText id={user.id} primary={user.firstName + ' ' + user.lastName} />
+                            </ListItemButton>
+                        </Link>
                     </ListItem>
                 );
             })}
