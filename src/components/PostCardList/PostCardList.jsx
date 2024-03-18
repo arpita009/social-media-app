@@ -1,17 +1,12 @@
 import PostCard from "../PostCard";
-import {useState, useEffect} from "react";
-import axios from "axios";
+import {useContext} from "react";
+import PostsContext from "../../providers/PostsContext";
 
 export default function PostCardList() {
-    const [posts, setPosts] = useState([]);
-    useEffect(() => {
-        axios.get('https://dummyapi.io/data/v1/post', {
-            headers : {'app-id' : import.meta.env.VITE_APP_ID}
-        }).then(response => setPosts(response.data.data))
-    }, []);
+    const {commonPosts} = useContext(PostsContext)
 
     return (
-        !posts.length ? 'loading..' : posts.map(post => <PostCard
+        !commonPosts.length ? 'loading..' : commonPosts.map(post => <PostCard
                 key={post.id}
                 image={post.image}
                 content={post.text}

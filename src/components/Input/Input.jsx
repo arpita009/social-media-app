@@ -1,14 +1,16 @@
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import {useState} from "react";
+import {useState, useContext} from "react";
 import LoadingButton from '@mui/lab/LoadingButton';
 import axios from "axios";
+import PostsContext from "../../providers/PostsContext.jsx";
 
 export default function Input() {
     const [postText, setPostText] = useState('');
     const [imageUrl, setImageUrl] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+    const {commonPosts, setCommonPosts} = useContext(PostsContext);
 
     const createPost = async () => {
         setIsLoading(true);
@@ -25,10 +27,10 @@ export default function Input() {
             }
         )
             .then((res) => {
-                console.log(res.data);
                 setIsLoading(false);
                 setPostText('');
                 setImageUrl('');
+                setCommonPosts([res.data, ...commonPosts])
             })
     }
 

@@ -10,9 +10,9 @@ import Typography from '@mui/material/Typography';
 import { red, purple } from '@mui/material/colors';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import {useState} from "react";
+import {memo, useState} from "react";
 
-export default function PostCard({content, author, image, publishDate}) {
+function PostCard({content, author, image, publishDate}) {
     const [isLiked, setIsLiked] = useState(false);
 
     return (
@@ -23,8 +23,9 @@ export default function PostCard({content, author, image, publishDate}) {
                         {author.firstName.substring(0,1)}
                     </Avatar>
                 }
-                title={author.firstName + ' ' + author.lastName}
-                subheader={publishDate}
+                title={<Typography variant="h6" fontWeight="bold">
+                {author.firstName + ' ' + author.lastName}
+                    </Typography>}
             />
             <CardMedia
                 component="img"
@@ -47,3 +48,5 @@ export default function PostCard({content, author, image, publishDate}) {
         </Card>
     );
 }
+
+export default memo(PostCard);
